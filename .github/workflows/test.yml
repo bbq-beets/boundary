@@ -7,7 +7,7 @@ on:
 
 jobs:
   setup:
-    runs-on: ${{ fromJSON(vars.RUNNER) }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -40,7 +40,7 @@ jobs:
   test-modules:
     needs:
       - setup
-    runs-on: ${{ fromJSON(vars.RUNNER) }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         module: ["api", "sdk"]
@@ -77,7 +77,7 @@ jobs:
   test:
     needs:
       - setup
-    runs-on: ${{ fromJSON(vars.RUNNER_LARGE) }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Determine Go version
@@ -105,14 +105,15 @@ jobs:
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-go
+      - name: Install Tools
+        run: |
+          make tools
       - name: Initialize Test Database
         run: |
           which pg_isready || sudo apt-get update && sudo apt-get install -y postgresql-client
           make DOCKER_ARGS='-d' PG_OPTS='-c shared_buffers=256MB -c max_connections=200000' -C testing/dbtest/docker database-up
           until pg_isready -h 127.0.0.1; do docker container inspect boundary-sql-tests &> /dev/null || exit -1; sleep 1; done
-      - name: Install Tools
-        run: |
-          make tools
+
       - name: Test
         run: |
           make test-ci
