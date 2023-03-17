@@ -7,7 +7,10 @@ on:
 
 jobs:
   setup:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -37,47 +40,13 @@ jobs:
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-go
-  test-modules:
-    needs:
-      - setup
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        module: ["api", "sdk"]
-    steps:
-      - uses: actions/checkout@v3
-      - name: Determine Go version
-        id: get-go-version
-        # We use .go-version as our source of truth for current Go
-        # version, because "goenv" can react to it automatically.
-        run: |
-          echo "Building with Go $(cat .go-version)"
-          echo "go-version=$(cat .go-version)" >> $GITHUB_OUTPUT
-      - name: Set up go
-        uses: actions/setup-go@v3
-        with:
-          go-version: "${{ steps.get-go-version.outputs.go-version }}"
-      - name: Determine Go cache paths
-        id: go-cache-paths
-        run: |
-          echo "go-build=$(go env GOCACHE)" >> $GITHUB_OUTPUT
-          echo "go-mod=$(go env GOMODCACHE)" >> $GITHUB_OUTPUT
-      - name: Set up Go modules cache
-        uses: actions/cache@v3
-        with:
-          path: |
-            ${{ steps.go-cache-paths.outputs.go-build }}
-            ${{ steps.go-cache-paths.outputs.go-mod }}
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go
-      - name: Test ${{ matrix.module }} Module
-        run: |
-          make test-${{ matrix.module }}
   test:
     needs:
       - setup
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, ubuntu-latest, ubuntu-latest, ubuntu-latest, ubuntu-latest ]
+    runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
       - name: Determine Go version
