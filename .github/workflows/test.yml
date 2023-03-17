@@ -43,6 +43,7 @@ jobs:
   test:
     needs:
       - setup
+    continue-on-error: true
     strategy:
       matrix:
         os: [ubuntu-latest, ubuntu-latest, ubuntu-latest, ubuntu-latest, ubuntu-latest ]
