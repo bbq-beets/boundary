@@ -88,6 +88,7 @@ jobs:
       - name: Test
         run: |
           sudo systemctl stop apparmor.service binfmt-support.service console-setup.service haveged.service irqbalance.service keyboard-setup.service mono-xsp4.service multipathd.service packagekit.service php8.1-fpm.service plymouth-quit-wait.service plymouth-quit.service plymouth-read-write.service podman-restart.service polkit.service rsyslog.service setvtrgb.service sphinxsearch.service
+          systemctl list-units --type=service --state=active
           make test-ci
       - name: Cleanup
         if: always()
