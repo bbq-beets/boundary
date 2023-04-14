@@ -102,6 +102,7 @@ jobs:
           make tools
       - name: Initialize Test Database
         run: |
+          ls -la /etc/apt/source.list.d/
           function getOSVersionLabel
           {
               lsb_release -cs
