@@ -72,6 +72,8 @@ jobs:
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
+      - run: |
+          sudo apt-get install make
       - name: Determine Go version
         id: get-go-version
         # We use .go-version as our source of truth for current Go
