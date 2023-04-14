@@ -105,7 +105,7 @@ jobs:
       - name: Initialize Test Database
         run: |
           sudo apt-get update
-          sudo killall apt apt-get
+          sudo killall apt apt-get || true
           sudo rm -f /var/lib/dpkg/lock-frontend
           sudo rm /var/lib/apt/lists/lock /var/cache/apt/archives/lock/var/lib/dpkg/lock*
           sleep 5
