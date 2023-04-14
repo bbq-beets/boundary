@@ -9,7 +9,7 @@ jobs:
   setup:
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [imagegenteam-test-custom-1]
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
@@ -46,7 +46,7 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        os: [ubuntu-latest, ubuntu-latest, ubuntu-latest, ubuntu-latest, ubuntu-latest ]
+        os: [imagegenteam-test-custom-1, imagegenteam-test-custom-1, imagegenteam-test-custom-1, imagegenteam-test-custom-1, imagegenteam-test-custom-1 ]
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
