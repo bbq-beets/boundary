@@ -22,6 +22,19 @@ jobs:
         run: |
           echo "Building with Go $(cat .go-version)"
           echo "go-version=$(cat .go-version)" >> $GITHUB_OUTPUT
+      - run: |
+          echo "--------------"
+          echo "/etc/systemd/system.conf"
+          cat /etc/systemd/system.conf
+          echo "--------------"
+          echo "/etc/security/limits.conf"
+          cat /etc/security/limits.conf
+          echo "--------------"
+          echo "/etc/pam.d/common-session"
+          cat /etc/pam.d/common-session
+          echo "--------------"
+          echo "/etc/pam.d/common-session-noninteractive"
+          cat /etc/pam.d/common-session-noninteractive
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
