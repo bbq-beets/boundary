@@ -80,19 +80,13 @@ jobs:
           make tools
       - name: Initialize Test Database
         run: |
-          sudo systemctl stop apparmor.service binfmt-support.service console-setup.service haveged.service irqbalance.service keyboard-setup.service mono-xsp4.service multipathd.service packagekit.service php8.1-fpm.service plymouth-quit-wait.service plymouth-quit.service plymouth-read-write.service podman-restart.service polkit.service rsyslog.service setvtrgb.service sphinxsearch.service
           which pg_isready || sudo apt-get update && sudo apt-get install -y postgresql-client
           make DOCKER_ARGS='-d' PG_OPTS='-c shared_buffers=256MB -c max_connections=200000' -C testing/dbtest/docker database-up
           until pg_isready -h 127.0.0.1; do docker container inspect boundary-sql-tests &> /dev/null || exit -1; sleep 1; done
 
       - name: Test
         run: |
-          sudo systemctl stop apparmor.service binfmt-support.service console-setup.service haveged.service irqbalance.service keyboard-setup.service mono-xsp4.service multipathd.service packagekit.service php8.1-fpm.service plymouth-quit-wait.service plymouth-quit.service plymouth-read-write.service podman-restart.service polkit.service rsyslog.service setvtrgb.service sphinxsearch.service
-          systemctl list-units --type=service --state=active
-          sudo rm -frv /etc/systemd/system.conf
-          sudo touch /etc/systemd/system.conf
-          sudo systemctl daemon-reexec
-          make test-ci
+          go test "github.com/hashicorp/boundary/internal/credential/vault" -tags="" -v -json -cover -timeout 120m | tparse -follow
       - name: Cleanup
         if: always()
         run: |
