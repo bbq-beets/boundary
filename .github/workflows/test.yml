@@ -9,7 +9,7 @@ jobs:
   setup:
     strategy:
       matrix:
-        os: [ubuntu-22.04]
+        os: [imagegenteam-marketplace-gpu]
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
@@ -68,7 +68,7 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        os: [ubuntu-22.04, ubuntu-22.04, ubuntu-22.04, ubuntu-22.04, ubuntu-22.04 ]
+        os: [imagegenteam-marketplace-gpu, imagegenteam-marketplace-gpu, imagegenteam-marketplace-gpu, imagegenteam-marketplace-gpu, imagegenteam-marketplace-gpu ]
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
