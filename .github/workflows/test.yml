@@ -35,6 +35,15 @@ jobs:
           echo "--------------"
           echo "/etc/pam.d/common-session-noninteractive"
           cat /etc/pam.d/common-session-noninteractive
+      - run: |
+          echo "Soft user"
+          ulimit -a
+          echo "Hard User"
+          ulimit -Ha
+          echo "Soft sudo user"
+          sudo sh -c "ulimit -a"
+          echo "Hard sudo User"
+          sudo sh -c "ulimit -Ha"
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
