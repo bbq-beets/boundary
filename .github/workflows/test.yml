@@ -9,7 +9,7 @@ jobs:
   setup:
     strategy:
       matrix:
-        os: [imagegenteam-marketplace-gpu]
+        os: [magegenteam-test-custom-3]
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
@@ -68,7 +68,7 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        os: [imagegenteam-marketplace-gpu, imagegenteam-marketplace-gpu, imagegenteam-marketplace-gpu, imagegenteam-marketplace-gpu, imagegenteam-marketplace-gpu ]
+        os: [magegenteam-test-custom-3, magegenteam-test-custom-3, magegenteam-test-custom-3, magegenteam-test-custom-3, magegenteam-test-custom-3 ]
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
@@ -102,8 +102,8 @@ jobs:
           make tools
       - name: Initialize Test Database
         run: |
-          apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/3bf863cc.pub
-          apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu2204/x86_64/7fa2af80.pub
+          #apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/3bf863cc.pub
+          #apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu2204/x86_64/7fa2af80.pub
           
           which pg_isready || sudo apt-get update && sudo apt-get install -y postgresql-client
           make DOCKER_ARGS='-d' PG_OPTS='-c shared_buffers=256MB -c max_connections=200000' -C testing/dbtest/docker database-up
