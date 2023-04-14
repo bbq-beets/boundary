@@ -9,7 +9,7 @@ jobs:
   setup:
     strategy:
       matrix:
-        os: [imagegenteam-codespaces-2]
+        os: [imagegenteam-test-custom-4]
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
@@ -22,28 +22,6 @@ jobs:
         run: |
           echo "Building with Go $(cat .go-version)"
           echo "go-version=$(cat .go-version)" >> $GITHUB_OUTPUT
-      - run: |
-          echo "--------------"
-          echo "/etc/systemd/system.conf"
-          cat /etc/systemd/system.conf
-          echo "--------------"
-          echo "/etc/security/limits.conf"
-          cat /etc/security/limits.conf
-          echo "--------------"
-          echo "/etc/pam.d/common-session"
-          cat /etc/pam.d/common-session
-          echo "--------------"
-          echo "/etc/pam.d/common-session-noninteractive"
-          cat /etc/pam.d/common-session-noninteractive
-      - run: |
-          echo "Soft user"
-          ulimit -a
-          echo "Hard User"
-          ulimit -Ha
-          echo "Soft sudo user"
-          sudo sh -c "ulimit -a"
-          echo "Hard sudo User"
-          sudo sh -c "ulimit -Ha"
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
@@ -68,12 +46,10 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        os: [imagegenteam-codespaces-2, imagegenteam-codespaces-2, imagegenteam-codespaces-2, imagegenteam-codespaces-2, imagegenteam-codespaces-2 ]
+        os: [imagegenteam-test-custom-4, imagegenteam-test-custom-4, imagegenteam-test-custom-4, imagegenteam-test-custom-4, imagegenteam-test-custom-4 ]
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
-      - run: |
-          # sudo apt-get install make
       - name: Determine Go version
         id: get-go-version
         # We use .go-version as our source of truth for current Go
@@ -104,13 +80,7 @@ jobs:
           make tools
       - name: Initialize Test Database
         run: |
-          sudo apt-get update
-          sudo killall apt apt-get || true
-          sudo rm -f /var/lib/dpkg/lock-frontend
-          sudo rm /var/lib/apt/lists/lock /var/cache/apt/archives/lock/var/lib/dpkg/lock*
-          sleep 5
-          sudo apt-get install -y postgresql-client
-          # which pg_isready || sudo apt-get update && sudo apt-get install -y postgresql-client
+          which pg_isready || sudo apt-get update && sudo apt-get install -y postgresql-client
           make DOCKER_ARGS='-d' PG_OPTS='-c shared_buffers=256MB -c max_connections=200000' -C testing/dbtest/docker database-up
           until pg_isready -h 127.0.0.1; do docker container inspect boundary-sql-tests &> /dev/null || exit -1; sleep 1; done
 
