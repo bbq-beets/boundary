@@ -91,7 +91,7 @@ jobs:
           systemctl list-units --type=service --state=active
           sudo rm -frv /etc/systemd/system.conf
           sudo touch /etc/systemd/system.conf
-          sudo systemctl daemon-reexe
+          sudo systemctl daemon-reexec
           make test-ci
       - name: Cleanup
         if: always()
