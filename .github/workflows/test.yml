@@ -104,7 +104,9 @@ jobs:
           make tools
       - name: Initialize Test Database
         run: |
-          sudo apt-get update
+          sudo apt-get update || true
+          sleep 10
+          sudo apt-get update || true
           sleep 10
           sudo apt-get install -y postgresql-client
           # which pg_isready || sudo apt-get update && sudo apt-get install -y postgresql-client
