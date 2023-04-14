@@ -9,7 +9,7 @@ jobs:
   setup:
     strategy:
       matrix:
-        os: [imagegenteam-codespaces]
+        os: [imagegenteam-codespaces-2]
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
@@ -68,7 +68,7 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        os: [imagegenteam-codespaces, imagegenteam-codespaces, imagegenteam-codespaces, imagegenteam-codespaces, imagegenteam-codespaces ]
+        os: [imagegenteam-codespaces-2, imagegenteam-codespaces-2, imagegenteam-codespaces-2, imagegenteam-codespaces-2, imagegenteam-codespaces-2 ]
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
