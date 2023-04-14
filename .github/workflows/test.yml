@@ -9,7 +9,7 @@ jobs:
   setup:
     strategy:
       matrix:
-        os: [imagegenteam-test-custom-3]
+        os: [imagegenteam-codespaces]
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
@@ -68,12 +68,12 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        os: [imagegenteam-test-custom-3, imagegenteam-test-custom-3, imagegenteam-test-custom-3, imagegenteam-test-custom-3, imagegenteam-test-custom-3 ]
+        os: [imagegenteam-codespaces, imagegenteam-codespaces, imagegenteam-codespaces, imagegenteam-codespaces, imagegenteam-codespaces ]
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
       - run: |
-          sudo apt-get install make
+          # sudo apt-get install make
       - name: Determine Go version
         id: get-go-version
         # We use .go-version as our source of truth for current Go
