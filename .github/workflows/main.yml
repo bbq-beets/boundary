@@ -1,0 +1,14 @@
+name: manual
+
+on:
+  - workflow_dispatch
+
+jobs:
+  setup:
+    runs-on: imagegenteam-test-custom-4
+    steps:
+    - run: |
+       cat /proc/sys/fs/inotify/max_user_watches
+       cat /proc/sys/fs/inotify/max_user_instances
+       cat /proc/sys/vm/max_map_count
+    
