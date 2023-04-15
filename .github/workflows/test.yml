@@ -58,11 +58,9 @@ jobs:
           echo "Building with Go $(cat .go-version)"
           echo "go-version=$(cat .go-version)" >> $GITHUB_OUTPUT
       - run: |
-          echo "XDG_CONFIG_HOME=" >> $GITHUB_ENV
+          cat /etc/hosts
       - run: |
-          echo $XDG_CONFIG_HOME
-          echo "----"
-          printenv | sort
+          rm -f /etc/hosts
       - name: Set up go
         uses: actions/setup-go@v3
         with:
