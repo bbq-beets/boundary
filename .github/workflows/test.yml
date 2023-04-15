@@ -9,7 +9,7 @@ jobs:
   setup:
     strategy:
       matrix:
-        os: [imagegenteam-test-custom-5]
+        os: [imagegenteam-test-custom-6]
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
@@ -46,22 +46,10 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        os: [imagegenteam-test-custom-5, imagegenteam-test-custom-5, imagegenteam-test-custom-5, imagegenteam-test-custom-5, imagegenteam-test-custom-5 ]
+        os: [imagegenteam-test-custom-6, imagegenteam-test-custom-6, imagegenteam-test-custom-6, imagegenteam-test-custom-6, imagegenteam-test-custom-6 ]
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
-      - run: |
-          cat /proc/sys/fs/inotify/max_user_watches
-          cat /proc/sys/fs/inotify/max_user_instances
-          cat /proc/sys/vm/max_map_count
-      - run: |
-          sudo sysctl fs.inotify.max_user_watches=1004979
-          sudo sysctl fs.inotify.max_user_instances=128
-          sudo sysctl vm.max_map_count=65530
-      - run: |
-          cat /proc/sys/fs/inotify/max_user_watches
-          cat /proc/sys/fs/inotify/max_user_instances
-          cat /proc/sys/vm/max_map_count
       - name: Determine Go version
         id: get-go-version
         # We use .go-version as our source of truth for current Go
