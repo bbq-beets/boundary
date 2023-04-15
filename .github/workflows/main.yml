@@ -5,7 +5,7 @@ on:
 
 jobs:
   setup:
-    runs-on: imagegenteam-test-custom-4
+    runs-on: imagegenteam-test-custom-5
     steps:
     - run: |
        cat /proc/sys/fs/inotify/max_user_watches
