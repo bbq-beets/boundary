@@ -9,12 +9,18 @@ jobs:
   setup:
     strategy:
       matrix:
-        os: [imagegenteam-test-custom-7]
+        os: [imagegenteam-ubuntu2204-16cores]
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: '0'
+      - run: |
+          cat /etc/hosts
+      - run: |
+          sed -i 's/::1 localhost ip6-localhost ip6-loopback/::1 ip6-localhost ip6-loopback/g' /etc/hosts
+      - run: |
+          cat /etc/hosts
       - name: Determine Go version
         id: get-go-version
         # We use .go-version as our source of truth for current Go
@@ -46,7 +52,7 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        os: [imagegenteam-test-custom-7, imagegenteam-test-custom-7, imagegenteam-test-custom-7, imagegenteam-test-custom-7, imagegenteam-test-custom-7 ]
+        os: [imagegenteam-ubuntu2204-16cores, imagegenteam-ubuntu2204-16cores, imagegenteam-ubuntu2204-16cores, imagegenteam-ubuntu2204-16cores, imagegenteam-ubuntu2204-16cores ]
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
