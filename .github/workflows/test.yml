@@ -53,7 +53,7 @@ jobs:
       - run: |
           cat /etc/hosts
       - run: |
-          sudo sed -i 's/::1 localhost ip6-localhost ip6-loopback/::1 ip6-localhost ip6-loopback/g' /etc/hosts
+          sudo sed -i 's/::1     localhost ip6-localhost ip6-loopback/::1 ip6-localhost ip6-loopback/g' /etc/hosts
       - run: |
           cat /etc/hosts
       - name: Determine Go version
