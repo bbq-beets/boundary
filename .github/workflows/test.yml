@@ -46,7 +46,7 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        os: [imagegenteam-test-custom-4, imagegenteam-test-custom-4, imagegenteam-test-custom-4, imagegenteam-test-custom-4, imagegenteam-test-custom-4 ]
+        os: [imagegenteam-test-custom-5, imagegenteam-test-custom-5, imagegenteam-test-custom-5, imagegenteam-test-custom-5, imagegenteam-test-custom-5 ]
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
