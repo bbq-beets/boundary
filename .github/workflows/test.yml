@@ -9,7 +9,7 @@ jobs:
   setup:
     strategy:
       matrix:
-        os: [imagegenteam-ubuntu2204-16cores]
+        os: [ubuntu-latest]
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
@@ -46,14 +46,10 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        os: [imagegenteam-ubuntu2204-16cores, imagegenteam-ubuntu2204-16cores, imagegenteam-ubuntu2204-16cores, imagegenteam-ubuntu2204-16cores, imagegenteam-ubuntu2204-16cores ]
+        os: [ubuntu-latest, ubuntu-latest, ubuntu-latest, ubuntu-latest, ubuntu-latest ]
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
-      - run: |
-          cat /etc/hosts
-          sudo sed -i 's/::1 *localhost ip6-localhost ip6-loopback/::1 ip6-localhost ip6-loopback/g' /etc/hosts
-          cat /etc/hosts
       - name: Determine Go version
         id: get-go-version
         # We use .go-version as our source of truth for current Go
@@ -102,14 +98,10 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        os: [imagegenteam-ubuntu2204-16cores, imagegenteam-ubuntu2204-16cores, imagegenteam-ubuntu2204-16cores, imagegenteam-ubuntu2204-16cores, imagegenteam-ubuntu2204-16cores ]
+        os: [ubuntu-latest, ubuntu-latest, ubuntu-latest, ubuntu-latest, ubuntu-latest ]
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
-      - run: |
-          cat /etc/hosts
-          sudo sed -i 's/::1 *localhost ip6-localhost ip6-loopback/::1 ip6-localhost ip6-loopback/g' /etc/hosts
-          cat /etc/hosts
       - name: Determine Go version
         id: get-go-version
         # We use .go-version as our source of truth for current Go
